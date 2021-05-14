@@ -1,4 +1,4 @@
-PROG     = elscata
+PROG     = bnssa
 EXE      = $(PROG).exe
 SOURCE   = $(PROG).f
 
