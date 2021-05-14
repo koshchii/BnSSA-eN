@@ -1,3 +1,13 @@
+## Output files in this repo:
+*.dat
+*.exe
+
+## Input file:
+mycase.in
+
+## Densities
+densities/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
