@@ -1,6 +1,6 @@
 # BnSSA-eN
 
-> This package is a modification of the ELSEPA code by F. Salvat, A. Jablonski, and C. J. Powell  [_Comp. Phys. Comm. 165, 157 (2005)_](https://www.sciencedirect.com/science/article/abs/pii/S0010465504004795?via%3Dihub) to make predictions for the beam-normal single-spin asymmetry (_B<sub>n</sub>_) in elastic electron-nucleus scattering at GeV beam energies. Theoretical details are discussed in the paper by O. Koshchii, M. Gorchtein, X. Roca-Maza, and H. Spiesberger, which is available on arXiv: [arXiv:2102.11809](https://arxiv.org/abs/2102.11809). The ELSEPA source package is available on [Mendeley](https://mendeley.figshare.com/articles/dataset/elsepa_Dirac_partial-wave_calculation_of_elastic_scattering_of_electrons_and_positrons_by_atoms_positive_ions_and_molecules/11332520) and is  distributed under a [CC BY 4](https://creativecommons.org/licenses/by/4.0/) license. 
+> This package is a modification of the ELSEPA code by F. Salvat, A. Jablonski, and C. J. Powell  [_Comp. Phys. Comm. 165, 157 (2005)_](https://www.sciencedirect.com/science/article/abs/pii/S0010465504004795?via%3Dihub) to make predictions for the beam-normal single-spin asymmetry (_B<sub>n</sub>_) in elastic electron-nucleus scattering at GeV beam energies. Inelastic intermediate-state excitations of the target nucleus were included into the Coulomb problem in the form of an optical potential. Theoretical details are discussed in the paper by O. Koshchii, M. Gorchtein, X. Roca-Maza, and H. Spiesberger, which is available on arXiv: [arXiv:2102.11809](https://arxiv.org/abs/2102.11809). The ELSEPA source package is available on [Mendeley](https://mendeley.figshare.com/articles/dataset/elsepa_Dirac_partial-wave_calculation_of_elastic_scattering_of_electrons_and_positrons_by_atoms_positive_ions_and_molecules/11332520) and is  distributed under a [CC BY 4](https://creativecommons.org/licenses/by/4.0/) license. 
 
 
 ## Table of Contents
@@ -16,27 +16,27 @@
 The distribution package consists of Fortran 77 programs (source code files) and numerical data files. There are 9 files in the distribution package:
 1. ELSEPA-related files (5 files):
     1. 'readme.txt' -  the present file.
-    2. 'Makefile' -  makefile
+    2. 'Makefile' -  makefile.
     3. 'elsepa.f' - calculation of elastic scattering of electrons and positrons by nuclei. Dirac partial wave analysis for real and complex central potentials; high-energy factorizations.
-    4. 'elscata.f' -  main program for electron scattering by nuclei.
-    5. 'mycase.in' --  example of an input data file for 'elscata'. Relevant input parameters that can be changed for obtaining various predictions for B<sub>n</sub> are: IZ, MNUCL, MABS, ISOT, IFR, UNC, and EV. The meaning of these parameters is described inside the input file. Other parameters should not be changed, and they are marked as NC (no change) inside the input file.
+    4. 'bnssa.f' -  the main program file for predicting B<sub>n</sub> in elastic electron-nucleus scattering at GeV beam energies.
+    5. 'mycase.in' --  example of an input data file for 'bnssa'. Relevant input parameters that can be changed for obtaining various predictions for _B<sub>n</sub>_ are: IZ, MNUCL, MABS, ISOT, IFR, UNC, and EV. The meaning of these parameters is described inside the input file. Other parameters should not be changed, and they are marked as NC (no change) inside the input file.
 
-2. Bosted-Christy nucleon structure functions-related files (4 files):
-    1. 'f1f217n.f' 
+2. Files (4 files) related to the parametrization of structure functions that are extracted from inelastic virtual photoabsorption cross sections on the proton:
+    1. 'f1f2wd.f' 
     2. 'f2allm.f' 
     3. 'f2glob.f'
     4. 'r1998.f'
 
-The files from part 2. are external to the ELSEPA code. They contain the Bosted-Christy parametrization [Phys. Rev. C 81, 055213 (2010)](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.81.055213) (arXiv: https://arxiv.org/abs/0712.3731) for the nucleon structure functions that are needed for the computation of the absorptive potential. The absorptive potential is computed according to the framework outlined in our paper https://arxiv.org/abs/2102.11809.
+The last 4 files are external to the ELSEPA code. They contain the Bosted-Christy parametrization [Phys. Rev. C 81, 055213 (2010)](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.81.055213) (arXiv: https://arxiv.org/abs/0712.3731) for the proton structure functions that are needed for the evaluation of the absorptive potential _V<sub>abs</sub>_. The absorptive potential is computed according to the framework outlined in our paper https://arxiv.org/abs/2102.11809.
            
-The file 'f1f217n.f' was subject to several modifications. First, several expressions related to typos in [Phys. Rev. C 81, 055213 (2010)](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.81.055213) were fixed. Second, the first derivatives of the photoabsorption cross sections σ<sub>L</sub> and σ<sub>T</sub> were implemented. These derivatives are needed for the calculation of the absorptive potential within our framework.
+The file 'f1f2wd.f' includes an implementation of the first derivatives of the photoabsorption cross sections _σ<sub>L</sub>_ and _σ<sub>T</sub>_ at _Q<sup>2</sup>_=0. These derivatives are needed for the calculation of the absorptive potential within our framework.
 
 
 ## Usage
 
-1. Generate the executable binary file 'elscata.exe' using your Fortran compiler. For example, when I use the gfortran compiler in Linux, this executable is generated by means of the following command:
+1. Generate the executable binary file 'bnssa.exe' using your Fortran compiler. For example, when I use the gfortran compiler in Linux, this executable is generated by means of the following command:
 
-       gfortran -fno-align-commons -fno-automatic -ffixed-line-length-none -std=legacy elscata.f -o elscata.exe `cernlib -safe -G Motif mathlib`
+       gfortran -fno-align-commons -fno-automatic -ffixed-line-length-none -std=legacy bnssa.f -o bnssa.exe `cernlib -safe -G Motif mathlib`
       Alternatively, one can generate the executable file using the `make` command. If your compiler is different from gfortran, the Makefile needs to be modified appropriately.
 
 2. The  ``cernlib -safe -G Motif mathlib`` part is needed in order to execute subroutines that evaluate nucleon structure functions. One may need to install some additional libraries for this command to work properly. In my case (Ubuntu 16.04), I needed to run the following lines prior to the first execution of the command provided in part 1.:
@@ -56,13 +56,13 @@ The file 'f1f217n.f' was subject to several modifications. First, several expres
 
 4. Execute the code by entering the command:
             
-    `./elscata.exe < mycase.in` 
+    `./bnssa.exe < mycase.in` 
       
    which redirects the standard input unit (=5) to your input data file.
 
 
 ## General Information
-The program 'elscata.f' reads data from the input file 'mycase.in', whose structure is described in the heading comments of the Fortran 77 'elscata.f' source file. A short description of the input parameters is provided in the file 'mycase.in'. The program uses external subroutines and functions contained in modules 'elsepa.f', 'f1f217n.f', 'f2allm.f', 'f2glob.f', 'r1998.f'; these modules have been inserted into the source files of the main programs by means of an 'Include' statement.
+The program 'bnssa.f' reads data from the input file 'mycase.in', whose structure is described in the heading comments of the Fortran 77 'bnssa.f' source file. A short description of the input parameters is provided in the file 'mycase.in'. The program uses external subroutines and functions contained in modules 'elsepa.f', 'f1f2wd.f', 'f2allm.f', 'f2glob.f', 'r1998.f'; these modules have been inserted into the source files of the main programs by means of an 'Include' statement.
 
 For electron scattering from a target nucleus with with the atomic number _Z_ and isotop indicator _IS_ at a fixed beam energy, the calculated differential cross section (DCS) and beam-normal single-spin asymmetry _B<sub>n</sub>_ (also known as the Sherman function) are written to an output file in a format ready for visualization with a plotting program.
                     
@@ -75,7 +75,7 @@ When the absorptive potential _V<sub>abs</sub>_ is turned on (MABS=1), the outpu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    x3 - input value for the parameter ISOT (isotope indicator number)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    x4 - input value for the parameter UNC (model for calculation of V<sub>abs</sub>)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    x5 - input value for the parameter EV (beam energy in eV, in the E form format: x.yyyezz)\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    x6 - input value for the parameter MNUCL (nuclear charge density distribution model)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    x6 - input value for the parameter MNUCL (nuclear charge density distribution model)
     
 When the absorptive potential is turned off, the output filename is given in the following format:\
 \
