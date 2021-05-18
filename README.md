@@ -39,7 +39,7 @@ The file 'f1f2wd.f' includes an implementation of the first derivatives of the p
        gfortran -fno-align-commons -fno-automatic -ffixed-line-length-none -std=legacy bnssa.f -o bnssa.exe `cernlib -safe -G Motif mathlib`
       Alternatively, one can generate the executable file using the `make` command. If your compiler is different from gfortran, the Makefile needs to be modified appropriately.
 
-2. The  ``cernlib -safe -G Motif mathlib`` part is needed in order to execute subroutines that evaluate nucleon structure functions. One may need to install some additional libraries for this command to work properly. In my case (Ubuntu 16.04), I needed to run the following lines prior to the first execution of the command provided in part 1.:
+2. The  <code>\`cernlib -safe -G Motif mathlib\`</code> part is needed in order to execute subroutines that evaluate nucleon structure functions. One may need to install some additional libraries for this command to work properly. In my case (Ubuntu 16.04), I needed to run the following lines prior to the first execution of the command provided in part 1:
     * sudo apt-get install libmathlib2-dev
     * sudo apt-get install libx11-dev
     * sudo apt-get install libmotif-dev
