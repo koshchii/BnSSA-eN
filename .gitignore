@@ -2,12 +2,6 @@
 *.dat
 *.exe
 
-## Input file:
-mycase.in
-
-## Densities
-densities/
-
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
